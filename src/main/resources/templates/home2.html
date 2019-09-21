@@ -1,0 +1,275 @@
+<!DOCTYPE HTML>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Inventory Management System</title>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<script src="js/script.js"></script>
+
+<script>
+	$(document).on('change', '#name', function() {
+		var selectedOptionIndex = $(this).find('option:selected').index();
+
+		$('#email option').eq(selectedOptionIndex).prop('selected', true);
+	});
+</script>
+
+
+</head>
+<body>
+
+
+
+	<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+		<a class="navbar-brand" href="#">HOME</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#collapsibleNavbar">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="collapsibleNavbar">
+			<ul class="navbar-nav">
+				<li class="nav-item"><a class="nav-link"
+					th:href="@{'/products/list'}">Insert Product</a></li>
+				<li class="nav-item"><a class="nav-link"
+					th:href="@{'/hello/hello'}">Order History</a></li>
+				<li class="nav-item"><a class="nav-link"
+					th:href="@{'/CRM/list'}">CRM</a></li>
+			</ul>
+		</div>
+	</nav>
+
+
+
+
+
+
+	<div class="card">
+		<h5 class="card-header"></h5>
+		<div class="card-body">
+			<form  th:action="@{'/homeController/saveOrderHeader'}"
+				th:object="${formOrderHeader}" method="POST">
+
+				<h5 class="card-title"></h5>
+				<p class="card-text">
+				<div class="row">
+					<div class="col-4">
+						Order Number: <input type="text" th:field="*{number}" />
+					</div>
+
+					<div class="col-4">
+
+
+						Order Date: <input type="text" th:field="*{orderDate}" />
+
+					</div>
+
+					<div class="col-4">
+						Order Type: <a th:each="radioValue: ${orderTypeList}"> <input
+							type="radio" th:field="*{type}" th:value="${radioValue}" /> <label
+							th:text="${radioValue}"></label>
+						</a>
+					</div>
+				</div>
+				</p>
+    			<input type="submit" value="Submit"/>
+
+			</form>
+
+		</div>
+	</div>
+
+
+
+	<div class="card-deck mt-4">
+		<div class="card">
+			<div class="card-header text-white bg-primary">
+				<i>Select Product</i>
+			</div>
+			<div class="card-body">
+				<h5 class="card-title ">Product Name</h5>
+				<p class="card-text">
+				<form th:action="@{/homeController/saveProducts}"
+					th:object="${formOrderHeader}" method="POST">
+					<select class="form-control form-control-lg" th:field="*{products}">
+						<option th:each="product : ${productList}"
+							th:value="${product.name}" th:text="${product.name}">
+					</select>
+
+				</form>
+				</p>
+			</div>
+		</div>
+		<div class="card">
+			<div class="card-header text-white bg-primary">
+				<i>Select Customer</i>
+			</div>
+			<div class="card-body">
+				<h5 class="card-title">Customer Name:</h5>
+
+				<p class="card-text">
+				<form action="#" th:action="@{/CRM/saveCustomer}"
+					th:object="${customer}" method="POST">
+
+					<select class="form-control form-control-sm" id="name"
+						th:field="*{firstName}">
+						<option th:each="customer : ${customers}"
+							th:value="${customer.fullName}" th:text="${customer.fullName}">Customer</option>
+					</select>
+					</p>
+
+
+					<h5 class="card-title">Customer Email:</h5>
+					<p class="card-text">
+					<div id="email">
+						<select class="form-control form-control-sm" th:field="*{email}"
+							id="email">
+							<option th:each="customer : ${customers}"
+								th:value="${customer.email}" th:text="${customer.email}">Email</option>
+
+						</select>
+
+
+					</div>
+				</form>
+				</p>
+
+
+			</div>
+		</div>
+		<div class="card">
+			<div class="card-header text-white bg-primary">
+				<i>Order Details</i>
+			</div>
+			<div class="card-body">
+				<h5 class="card-title">Order Pack Quantity</h5>
+				<p class="card-text">
+				<form  action="#" th:action="@{saveOrderHeader}" th:object="${orderline}"
+					method="POST">
+					<select class="form-control form-control-sm"
+						th:field="*{orderPackQuantity}">
+						<option th:value="*{orderPackQuantity}">1</option>
+					</select>
+					</p>
+
+					<button form="myForm" type="submit" value="Submit"
+						class="btn btn-success">Add To Cart</button>
+				</form>
+
+
+
+
+
+			</div>
+		</div>
+	</div>
+
+
+
+
+	<div class="card">
+		<h5 class="card-header " style="text-align: center; margin-top: 20px;">Cart</h5>
+		<div class="card-body">
+
+			<h5 class="card-title"></h5>
+			<p class="card-text">
+			<table class="table table-bordered table-striped">
+				<thead>
+					<tr>
+						<th>Order #</th>
+						<th>Product Name</th>
+						<th>Price</th>
+						<th>QTY</th>
+						<th>Action</th>
+						<th>Total</th>
+
+					</tr>
+				</thead>
+
+				<tbody>
+					<tr th:each="tempProduct : ${products}">
+
+						<td th:text="${tempProduct.name}" />
+						<td th:text="${tempProduct.sku}" />
+						<td th:text="${tempProduct.color}" />
+						<td th:text="${tempProduct.size}" />
+
+						<td>
+							<!-- Add "update" button/link --> <a
+							th:href="@{/products/showFormForUpdate(productId=${tempProduct.productId})}"
+							class="btn btn-info btn-sm"> Update </a> <!-- Add "delete" button/link -->
+							<a
+							th:href="@{/products/delete(productId=${tempProduct.productId})}"
+							class="btn btn-danger btn-sm"
+							onclick="if (!(confirm('Are you sure you want to delete this product?'))) return false">
+								Delete </a>
+
+						</td>
+
+
+					</tr>
+				<tbody>
+					<tr ng-repeat="product in cartProduct">
+						<td>{{$index + 1}}</td>
+						<td>{{product.pname}}</td>
+						<td>{{product.price}}</td>
+						<td>
+							<button type="button" ng-click="decreaseQty(product)"
+								class="btn btn-danger">
+								<i class="fa fa-minus"></i>
+							</button> &nbsp; &nbsp; {{product.cartQty}} &nbsp; &nbsp;
+							<button type="button" ng-click="increaseQty(product)"
+								class="btn btn-success">
+								<i class="fa fa-plus"></i>
+							</button>
+						</td>
+						<td><button ng-click="removeProduct(product)"
+								class="btn btn-danger">
+								<i class="fa fa-remove"></i> Remove
+							</button></td>
+						<td>{{product.subTotal}}</td>
+					</tr>
+				</tbody>
+				<tfoot>
+					<tr ng-show="cartProduct.length != 0">
+						<td colspan="5" style="text-align: right">Final Total:</td>
+						<td>{{finalTotal}}</td>
+					</tr>
+					<tr ng-show="cartProduct.length != 0">
+						<td colspan="6" style="text-align: right">
+							<button data-toggle="modal" data-target="#checkoutModal"
+								type="button" ng-show="cartProduct.length != 0"
+								class="btn btn-success">
+								<i class="fa fa-check"></i> Check Out
+							</button>
+						</td>
+					</tr>
+				</tfoot>
+
+				</tbody>
+			</table>
+
+
+
+
+
+			</p>
+		</div>
+	</div>
+
+
+
+
+
+
+
+
+</body>
+</html>
