@@ -18,8 +18,6 @@ public class OrderLineMapper extends Mapper<OrderLineDTO, OrderLine> {
 		OrderLineDTO dto = new OrderLineDTO();
 		
 		dto.setProduct(productMapper.mapToDTO(e.getProduct()));
-		dto.setItemName(e.getItemName());
-		dto.setLineNumber(e.getLineNumber());
 		dto.setOrderLineId(e.getOrderLineId());
 		dto.setQuantity(e.getQuantity());
 		dto.setTotal(e.getTotal());
@@ -30,11 +28,7 @@ public class OrderLineMapper extends Mapper<OrderLineDTO, OrderLine> {
 
 	@Override
 	public OrderLine mapToEntity(OrderLineDTO theOrderLine) {
-		OrderLine orderLine = new OrderLine();
-		/*
-		 * orderLine.setProductId(theOrderLine.getItemId());
-		 */		orderLine.setItemName(theOrderLine.getItemName());
-		orderLine.setLineNumber(theOrderLine.getLineNumber());
+		OrderLine orderLine = new OrderLine();	
 		orderLine.setOrderLineId(theOrderLine.getOrderLineId());
 		orderLine.setQuantity(theOrderLine.getQuantity());
 		orderLine.setTotal(theOrderLine.getTotal());

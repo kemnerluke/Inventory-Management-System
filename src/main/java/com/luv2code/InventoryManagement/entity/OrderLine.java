@@ -21,8 +21,7 @@ public class OrderLine {
 	@Column(name = "order_line_id")
 	private int orderLineId;
 
-	@Column(name = "line_number")
-	private String lineNumber;
+	
 
 	@OneToOne 
 	@JoinColumn(name="product_id")
@@ -31,8 +30,7 @@ public class OrderLine {
 	@Column(name = "quantity")
 	private int quantity;
 	
-	@Column(name = "item_name")
-	private String itemName;
+	
 	
 	@Column(name="price")
 	private int price;
@@ -48,14 +46,7 @@ public class OrderLine {
 	private OrderHeader orderHeader;
 
 	
-	public String getItemName() {
-		return itemName;
-	}
-
-	public void setItemName(String itemName) {
-		this.itemName = itemName;
-	}
-
+	
 	
 
 	public int getOrderLineId() {
@@ -66,13 +57,7 @@ public class OrderLine {
 		this.orderLineId = orderLineId;
 	}
 
-	public String getLineNumber() {
-		return lineNumber;
-	}
-
-	public void setLineNumber(String lineNumber) {
-		this.lineNumber = lineNumber;
-	}
+	
 
 	public Product getProduct() {
 		return product;
