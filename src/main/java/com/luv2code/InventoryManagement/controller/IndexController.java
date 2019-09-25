@@ -12,15 +12,15 @@ import com.luv2code.InventoryManagement.dto.OrderHeaderDTO;
 import com.luv2code.InventoryManagement.service.OrderHeaderService;
 
 @Controller
-@RequestMapping("/hello")
-public class DashboardController {
+@RequestMapping("/")
+public class IndexController {
 	
 	
 	@Autowired
 	private OrderHeaderService orderHeaderService;
 	
 	
-	@GetMapping("/hello")
+	@GetMapping("/")
 	public ModelAndView showHome1() {
 		
 
@@ -32,7 +32,7 @@ public class DashboardController {
 		orderStatusList.add("Complete");
 
 		ModelAndView model1 = new ModelAndView();
-		model1.setViewName("hello");
+		model1.setViewName("index");
 		
 		model1.addObject("orderheader",theOrderHeader);
 		model1.addObject("orderStatusList", orderStatusList);

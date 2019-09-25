@@ -48,7 +48,7 @@
 <body>
 
 	<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-		<a class="navbar-brand" th:href="@{'/hello/hello'}">HOME</a>
+		<a class="navbar-brand" th:href="@{'/'}">HOME</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
 			data-target="#collapsibleNavbar">
 			<span class="navbar-toggler-icon"></span>
@@ -58,7 +58,7 @@
 				<li class="nav-item"><a class="nav-link"
 					th:href="@{'/products/list'}">Insert Product</a></li>
 				<li class="nav-item"><a class="nav-link"
-					th:href="@{'/hello/hello'}">Order History</a></li>
+					th:href="@{'/'}">Order History</a></li>
 				<li class="nav-item"><a class="nav-link"
 					th:href="@{'/CRM/list'}">CRM</a></li>
 			</ul>
@@ -68,7 +68,7 @@
 	<!-- Select OrderHeader Number/Date/Type/Status -->
 
 
-	<form th:action="@{'/homeController/saveOrderHeader'}"
+	<form th:action="@{'/orderController/saveOrderHeader'}"
 		th:object="${formOrderHeader}" method="POST">
 		<div class="card">
 			<h5 class="card-header"></h5>
@@ -194,7 +194,7 @@
 								</button>
 							</td>
 							<td><a
-								th:href="@{'/homeController/delete?orderLineId=' +${tempOrderLine.orderLineId} +'&orderNumber='+ ${formOrderHeader.number} }"
+								th:href="@{'/orderController/delete?orderLineId=' +${tempOrderLine.orderLineId} +'&orderNumber='+ ${formOrderHeader.number} }"
 								class="btn btn-danger"><i class="fa fa-remove"></i> Remove</a></td>
 
 							<td th:text="${tempOrderLine.total}" />
@@ -208,7 +208,7 @@
 						<tr>
 							<td colspan="6" style="text-align: right"><a type="button"
 								class="btn btn-success"
-								th:href="@{'/homeController/checkout?orderNumber='+${formOrderHeader.number} }">
+								th:href="@{'/orderController/checkout?orderNumber='+${formOrderHeader.number} }">
 
 									Check Out </a>
 									
@@ -288,7 +288,7 @@
 											<div class="modal-footer">
 												<button href="#" type="button" data-dismiss="modal"
 													class="btn btn-md btn-danger">Cancel</button>
-												<a class="btn btn-success" th:href="@{'/hello/hello'}" type="button">Complete
+												<a class="btn btn-success" th:href="@{'/'}" type="button">Complete
 													Order</a>
 											</div>
 										</div>

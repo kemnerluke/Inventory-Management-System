@@ -25,7 +25,7 @@ import com.luv2code.InventoryManagement.service.OrderLineService;
 import com.luv2code.InventoryManagement.service.ProductService;
 
 @Controller
-@RequestMapping("/homeController")
+@RequestMapping("/orderController")
 public class HomeController {
 
 	@Autowired
@@ -79,7 +79,7 @@ public class HomeController {
 
 		List<ProductDTO> theProducts = productService.getProducts();
 
-		model3.setViewName("home");
+		model3.setViewName("order");
 		model3.addObject("formOrderHeader", oh);
 		model3.addObject("orderTypeList", orderTypeList);
 		model3.addObject("orderStatusList", orderStatusList);
@@ -95,7 +95,7 @@ public class HomeController {
 
 		orderHeaderService.saveOrderHeader(oh);
 
-		return "redirect:/homeController/load?orderHeaderNumber=" + oh.getNumber();
+		return "redirect:/orderController/load?orderHeaderNumber=" + oh.getNumber();
 	}
 
 	@GetMapping("/delete")
@@ -105,7 +105,7 @@ public class HomeController {
 		// delete the product
 		orderLineService.deleteOrderLine(theId);
 
-		return "redirect:/homeController/load?orderHeaderNumber=" + orderNumber;
+		return "redirect:/orderController/load?orderHeaderNumber=" + orderNumber;
 	}
 
 	@GetMapping("/checkout")
@@ -117,7 +117,7 @@ public class HomeController {
 
 		orderHeaderService.checkout(orderNumber);
 
-		return "redirect:/homeController/load?orderHeaderNumber=" + orderNumber;
+		return "redirect:/orderController/load?orderHeaderNumber=" + orderNumber;
 	}
 
 }
