@@ -26,7 +26,7 @@ import com.luv2code.InventoryManagement.service.ProductService;
 
 @Controller
 @RequestMapping("/orderController")
-public class HomeController {
+public class OrderController {
 
 	@Autowired
 	private CustomerService customerService;
