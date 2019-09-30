@@ -1,1 +1,1 @@
-web: java -cp target/app.war
+web: java -jar target/app.war
