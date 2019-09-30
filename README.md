@@ -4,10 +4,13 @@
 ## Introduction
 Spring Boot Point Of Sales System- A multi tier system that allows a business owner to create and maintain a list of products they sell, a list of their customers and also generate sales and purchase orders for the customer and business owner. 
 
+##Live Demo:
+
+https://spring-boot-point-of-sales.herokuapp.com/
 
 ## Tech/framework used
 
-Spring Boot,Java,Maven,MYSQL,AWS,Bootstrap
+Spring Boot,Java,Maven,MYSQL,Bootstrap
 
 
 
